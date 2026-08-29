@@ -1,9 +1,8 @@
 package ru.hogwarts.school.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
+
+import java.util.Collection;
 
 @Entity
 public class Faculty {
@@ -12,6 +11,17 @@ public class Faculty {
     private Long id;
     private String name;
     private String color;
+    @OneToMany(mappedBy = "faculty")
+    @com.fasterxml.jackson.annotation.JsonIgnore
+    private Collection<Student> students;
+
+    public void setStudents(Collection<Student> students) {
+        this.students = students;
+    }
+
+    public Collection<Student> getStudents() {
+        return students;
+    }
 
     public Faculty() {
     }
