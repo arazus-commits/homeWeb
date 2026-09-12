@@ -15,7 +15,6 @@ import java.util.Collections;
 @WebMvcTest(FacultyController.class)
 @AutoConfigureRestTestClient
 public class FacultyControllerTest {
-
     @Autowired
     private RestTestClient restTestClient;
 
