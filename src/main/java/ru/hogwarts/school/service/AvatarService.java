@@ -47,6 +47,10 @@ public class AvatarService {
     public Avatar findAvatar(Long studentId) {
         return avatarRepository.findByStudentId(studentId).orElse(new Avatar());
     }
+    public java.util.List<ru.hogwarts.school.model.Avatar> getAllAvatars(int pageNumber, int pageSize) {
+        org.springframework.data.domain.PageRequest pageRequest = org.springframework.data.domain.PageRequest.of(pageNumber - 1, pageSize);
+        return avatarRepository.findAll(pageRequest).getContent();
+    }
 
 
 }
