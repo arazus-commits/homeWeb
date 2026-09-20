@@ -52,4 +52,11 @@ public class AvatarController {
                     .body(data);
 
         }
+    @GetMapping("/page")
+    public org.springframework.http.ResponseEntity<java.util.List<ru.hogwarts.school.model.Avatar>> getAllAvatars(
+            @RequestParam int page,
+            @RequestParam int size) {
+        return org.springframework.http.ResponseEntity.ok(avatarService.getAllAvatars(page, size));
     }
+
+}
