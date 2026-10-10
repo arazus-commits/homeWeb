@@ -3,10 +3,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.hogwarts.school.model.Avatar;
 import ru.hogwarts.school.repository.AvatarRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 
 @Service
 public class AvatarService {
+    private static final Logger logger = LoggerFactory.getLogger(AvatarService.class);
     private final AvatarRepository avatarRepository;
     private final StudentService studentService;
 
@@ -17,6 +20,7 @@ public class AvatarService {
     }
 
     public void uploadAvatar(Long studentId, org.springframework.web.multipart.MultipartFile avatarFile) throws java.io.IOException {
+        logger.info("Was invoked method for upload avatar");
         studentService.findStudent(studentId);
         ru.hogwarts.school.model.Student student = studentService.findStudent(studentId);
         if (student == null) {
@@ -45,6 +49,7 @@ public class AvatarService {
         return fileName.substring(fileName.lastIndexOf(".") + 1);
     }
     public Avatar findAvatar(Long studentId) {
+        logger.info("Was invoked method for find avatar");
         return avatarRepository.findByStudentId(studentId).orElse(new Avatar());
     }
 
