@@ -39,4 +39,16 @@ public class StudentController {
 
 
     }
+    @GetMapping("/names-starting-with-a")
+    public Collection<String> getNamesStartingWithA() {
+        return studentService.getStudentsNamesStartingWithA();
+    }
+    @GetMapping("/average-age")
+    public double getAverageAge() {
+        return studentService.getAverageAge();
+    }
+    @GetMapping("/parallel-sum")
+    public int getParallelSum() {
+        return studentService.getParallelSum();
+    }
 }

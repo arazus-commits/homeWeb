@@ -4,11 +4,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.hogwarts.school.model.Faculty;
 import ru.hogwarts.school.repository.FacultyRepository;
-
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import java.util.Collection;
+import java.util.Comparator;
 
 @Service
 public class FacultyService {
+    private static final Logger logger = LoggerFactory.getLogger(FacultyService.class);
     private final FacultyRepository facultyRepository;
     @Autowired
     public FacultyService(FacultyRepository facultyRepository) {
@@ -16,15 +19,19 @@ public class FacultyService {
     }
 
     public Faculty createFaculty(Faculty faculty) {
+        logger.info("Was invoked method for create faculty");
         return facultyRepository.save(faculty);
     }
     public Faculty findFaculty(Long id) {
+        logger.info("Was invoked method for find faculty");
         return facultyRepository.findById(id).orElse(null);
     }
     public Faculty editFaculty(Faculty faculty) {
+        logger.info("Was invoked method for edit faculty");
         return facultyRepository.save(faculty);
     }
     public void deleteFaculty(Long id) {
+        logger.info("Was invoked method for delete faculty");
         facultyRepository.deleteById(id);
     }
     public Collection<Faculty> findByColor(String color) {
@@ -33,6 +40,13 @@ public class FacultyService {
     }
     public Collection<Faculty> findByNameOrColor(String name, String color) {
         return facultyRepository.findByNameContainingIgnoreCaseOrColorContainingIgnoreCase(name, color);
+    }
+    public String getLongestFacultyName() {
+        logger.info("Was invoked method for get longest faculty name");
+        return facultyRepository.findAll().stream()
+                .map(Faculty::getName)
+                .max(Comparator.comparingInt(String::length))
+                .orElse("");
     }
 
 }
