@@ -64,5 +64,8 @@ public class StudentService {
                 .parallel()
                 .sum();
     }
-
+    public Collection<Student> getAllStudents() {
+        logger.info("Was invoked method for get all students");
+        return studentRepository.findAll();
+    }
 }
